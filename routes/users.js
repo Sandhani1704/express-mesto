@@ -6,24 +6,13 @@ const jsonDataPath = path.join(__dirname, '..', 'data', 'users.json');
 
 module.exports = router; // экспортировали роутер
 
-const readFiles = (pathUrl) => {
-  return fsPromises.readFile(pathUrl, { encoding: 'utf8' });
-    .then(file => {
-      console.log(file);
-      return JSON.parse(file);
-    });
-};
-
-readFiles(jsonDataPath);
-
-module.exports = readFiles;
+const readFiles = (pathUrl) => fsPromises.readFile(pathUrl, { encoding: 'utf8' })
+  .then((file) => JSON.parse(file));
 
 router.get('/users', (req, res) => {
   readFiles(jsonDataPath)
-    .then((data) => res.send(data));
-  /* .catch(err => {
-    res.status(500).json({ message: `На сервере произошла ошибка ${err}` })
-  }) */
+    .then((data) => res.send(data))
+    .catch((err) => res.status(500).json({ message: `На сервере произошла ошибка ${err}` }));
 });
 
 router.get('/users/:id', (req, res) => {
@@ -37,9 +26,10 @@ router.get('/users/:id', (req, res) => {
       if (!user) {
         return res.status(404).send({ message: 'Нет пользователя с таким id' });
       }
-      res.send(user);
-    });
-  /* .catch(err => {
-    res.status(500).json({ message: `На сервере произошла ошибка ${err}` })
-  }) */
+      return res.send(user);
+    })
+    .then((user) => res.send(user))
+    .catch((err) => res.status(500).json({ message: `На сервере произошла ошибка ${err}` }));
 });
+
+module.exports = readFiles;
