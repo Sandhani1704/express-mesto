@@ -14,11 +14,6 @@ app.use('/', routerCards);
 app.use('/', routerUsers);
 app.use('/', routerNonexistent);
 
-app.use((req, res, next) => {
-  console.log(+new Date());
-  next();
-});
-
 app.listen(PORT, () => {
   // Если всё работает, консоль покажет, какой порт приложение слушает
   console.log(`App listening on port ${PORT}`);
