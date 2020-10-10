@@ -3,7 +3,7 @@ const router = require('express').Router();
 const path = require('path');
 
 const jsonDataPathCards = path.join(__dirname, '..', 'data', 'cards.json');
-const readFiles = require('./users');
+const readFiles = require('./utils');
 
 /* const readFiles = (pathUrl) => {
   return fsPromises.readFile(pathUrl, { encoding: 'utf8' })

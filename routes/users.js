@@ -1,13 +1,10 @@
 const router = require('express').Router(); // создали роутер
-const fsPromises = require('fs').promises;
+
 const path = require('path');
 
 const jsonDataPath = path.join(__dirname, '..', 'data', 'users.json');
 
-module.exports = router; // экспортировали роутер
-
-const readFiles = (pathUrl) => fsPromises.readFile(pathUrl, { encoding: 'utf8' })
-  .then((file) => JSON.parse(file));
+const readFiles = require('./utils');
 
 router.get('/users', (req, res) => {
   readFiles(jsonDataPath)
@@ -32,4 +29,4 @@ router.get('/users/:id', (req, res) => {
     .catch((err) => res.status(500).json({ message: `На сервере произошла ошибка ${err}` }));
 });
 
-module.exports = readFiles;
+module.exports = router; // экспортировали роутер

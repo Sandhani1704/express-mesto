@@ -5,13 +5,19 @@ const app = express();
 const { PORT = 3000 } = process.env;
 const path = require('path');
 const routerCards = require('./routes/cards.js');
-const routerNonexistent = require('./routes/nonexistent.js');
 const routerUsers = require('./routes/users.js');
+const routerNonexistent = require('./routes/nonexistent.js');
 
 app.use(express.static(path.join(__dirname, 'public')));
+
 app.use('/', routerCards);
-app.use('/', routerNonexistent);
 app.use('/', routerUsers);
+app.use('/', routerNonexistent);
+
+app.use((req, res, next) => {
+  console.log(+new Date());
+  next();
+});
 
 app.listen(PORT, () => {
   // Если всё работает, консоль покажет, какой порт приложение слушает
