@@ -13,6 +13,7 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 // Слушаем 3000 порт
 const { PORT = 3000 } = process.env;
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 const path = require('path');
 const routerCards = require('./routes/cards.js');
 const routerUsers = require('./routes/users.js');
@@ -26,7 +27,7 @@ app.use('/', routerNonexistent);
 
 app.use((req, res, next) => {
   req.user = {
-    _id: '5f93692fc6aa8e1b1c380e1c' // вставьте сюда _id созданного в предыдущем пункте пользователя
+    _id: '5f947b6f7e5bcb276032c34d', // вставьте сюда _id созданного в предыдущем пункте пользователя
   };
 
   next();
