@@ -14,17 +14,18 @@ const getCards = (req, res) => {
 
 const createCard = (req, res) => {
   // console.log(req.user._id);
+  const { _id } = req.user;
   const { name, link } = req.body;
   console.log(req.body);
-  return Card.create({ name, link })
-    .then((card) => res.status(200).send(card))
+  Card.create({ name, link, owner: _id })
+    .then((card) => res.status(200).send({ data: card }))
     // .catch((err) => res.status(500).send({ message: `На сервере произошла ошибка ${err}` }));
     .catch((err) => console.log(err));
 };
 
 const deleteCard = (req, res) => {
-  Card.findByIdAndRemove(req.params.cardId)
-    .orFail(new Error('notFound'))
+  console.log(req.params.cardId);
+  Card.findByIdAndRemove(req.params._id)
     .then((card) => res.send(card))
     .catch((err) => console.log(err));
 };

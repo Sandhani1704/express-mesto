@@ -18,8 +18,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator(v) {
-        // return /^http[s]?:\/\/w+/.test(v);
-        return /[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/gi.test(v);
+        return /^http[s]?:\/\/\w+/.test(v);
       },
       message: 'Ошибка в ссылке',
     },

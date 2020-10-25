@@ -12,24 +12,24 @@ const cardSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator(v) {
-        return /[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/gi.test(v);
+        return /^http[s]?:\/\/\w+/.test(v);
       },
       message: 'Ошибка в ссылке',
     },
-    owner: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-    },
-    likes: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        default: [],
-      },
-    ],
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
+  },
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
+    required: true,
+  },
+  likes: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
+    default: [],
+  }],
+  createdAt: {
+    type: Date,
+    default: Date.now(),
   },
 });
 
