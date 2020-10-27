@@ -8,11 +8,16 @@ const getUsers = (req, res) => {
 
 const getUser = (req, res) => {
   User.findOne({ _id: req.params.id })
-    .then((user) => res.send(user))
+    .then((user) => {
+      if (!user) {
+        return res.status(404).send({ message: 'Нет пользователя с таким id' });
+      }
+      return res.send(user);
+    })
     .catch((err) => {
       // console.log(err);
       if (err.name === 'CastError') {
-        res.status(404).send({ message: 'пользователь не найден' });
+        res.status(400).send({ message: 'невалидный id' });
       } else {
         res.status(500).send({ message: 'На сервере произошла ошибка' });
       }

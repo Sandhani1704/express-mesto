@@ -1,6 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const routerUsers = require('./routes/users.js');
+const routerCards = require('./routes/cards.js');
+const routerNonexistent = require('./routes/nonexistent.js');
 
 const app = express();
 
@@ -14,10 +17,6 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 const { PORT = 3000 } = process.env;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-const routerUsers = require('./routes/users.js');
-const routerCards = require('./routes/cards.js');
-const routerNonexistent = require('./routes/nonexistent.js');
 
 app.use('/', routerUsers);
 
