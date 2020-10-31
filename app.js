@@ -18,16 +18,16 @@ const { PORT = 3000 } = process.env;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/', routerUsers);
-
 app.use((req, res, next) => {
   req.user = {
-    _id: '5f947b6f7e5bcb276032c34d', // вставьте сюда _id созданного в предыдущем пункте пользователя
+    // _id: '5f947b6f7e5bcb276032c34d',
+    _id: '5f9d6c2b4909052b80bc5151', // вставьте сюда _id созданного в предыдущем пункте пользователя
   };
 
   next();
 });
 
+app.use('/', routerUsers);
 app.use('/', routerCards);
 app.use('/', routerNonexistent);
 

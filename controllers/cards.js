@@ -75,7 +75,7 @@ const likeCard = (req, res) => Card.findByIdAndUpdate(
     return res.send(card);
   })
   .catch((err) => {
-  // console.log(err);
+    // console.log(err);
     if (err.name === 'CastError') {
       res.status(400).send({ message: 'невалидный id' });
     } else {
