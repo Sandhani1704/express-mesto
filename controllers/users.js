@@ -63,9 +63,33 @@ const updateUser = (req, res) => {
     });
 };
 
+const updateUserAvatar = (req, res) => {
+  const { _id } = req.user;
+  const { avatar } = req.body;
+  // User.findByIdAndUpdate({ _id: req.user._id }, { name, about, avatar })
+  User.findByIdAndUpdate(_id, { avatar }, { new: true, runValidators: true })
+    // .then((user) => res.status(200).send(user))
+    .then((user) => {
+      console.log(user);
+      if (!user) {
+        return res.status(404).send({ message: 'Нет пользователя с таким id' });
+      }
+      return res.send(user);
+    })
+    .catch((err) => {
+      console.log(err);
+      if (err.name === 'ValidationError') {
+        res.status(400).send({ message: 'переданы некорректные данные в метод' });
+        return;
+      }
+      res.status(500).send({ message: 'На сервере произошла ошибка' });
+    });
+};
+
 module.exports = {
   getUsers,
   getUser,
   createUser,
   updateUser,
+  updateUserAvatar,
 };
