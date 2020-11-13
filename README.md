@@ -20,12 +20,12 @@
   
 Остальные директории вспомогательные, создаются при необходимости разработчиком
 
-### Локальная установка:
+### Для запуска проекта:
 
-`git clone https://github.com/Sandhani1704/express-mesto.git`
+1. Клонировать репозиторий `git clone https://github.com/Sandhani1704/express-mesto.git`
 
-`npm install` —  установка зависимостей
+2. Установить зависимости `npm install`
 
-`npm run start` — запускает сервер
+3. Запустить сервер `npm run start`
 
 `npm run dev` — запускает сервер с hot-reload
